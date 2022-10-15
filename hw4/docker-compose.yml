@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: "hw4"
+      POSTGRES_USER: "padjal"
+      POSTGRES_PASSWORD: "padjal"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - ./docker/db/scripts/*:/docker-entrypoint-initdb.d
+      - ./dz:/var/lib/postgresql/data
+      - ./docker/db/postgres.config:/var/lib/postgresql/data/pgdata/postgresql.conf
+    ports:
+      - "5432:5432"
+    command: "postgress -c config_file=/var/lib/postgresql/data/pgdata/postgresql.conf"
