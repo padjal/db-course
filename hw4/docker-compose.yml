@@ -8,9 +8,10 @@ services:
       POSTGRES_PASSWORD: "padjal"
       PGDATA: "/var/lib/postgresql/data/pgdata"
     volumes:
-      - ./docker/db/scripts/*:/docker-entrypoint-initdb.d
+      - ./docker/db/scripts/library.sql:/docker-entrypoint-initdb.d/library.sql
+      - ./docker/db/scripts/hospital.sql:/docker-entrypoint-initdb.d/hospital.sql
+      - ./docker/db/scripts/trains.sql:/docker-entrypoint-initdb.d/trains.sql
       - ./dz:/var/lib/postgresql/data
-      - ./docker/db/postgres.config:/var/lib/postgresql/data/pgdata/postgresql.conf
+      - ./docker/db/config/postgres.conf:/var/lib/postgresql/data/pgdata/postgres.conf
     ports:
       - "5432:5432"
-    command: "postgress -c config_file=/var/lib/postgresql/data/pgdata/postgresql.conf"
