@@ -133,34 +133,52 @@ set parent_category = 'Спорт'
 
 ## Task 2
 
-### Перечислите все категории в категории “Спорт” (с любым уровнем вложености). <br>
-Запрос:
-```sql
-todo
-```
-
-Результат:  
-![](./screenshots/8.png)
-
 ### Добавьте запись о бронировании читателем ‘Василеем Петровым’ книги с ISBN 123456 и номером копии 4. <br>
 Запрос:
-```
-todo
+```sql
+insert into readers (id, surname, name, address, birthday)
+values (default, 'Petrov', 'Vasili', 'Moscow', '7-23-1989');
+
+select id
+from readers
+where name = 'Vasili' and surname = 'Petrov';
+
+insert into books (isbn, year, name, author, number_of_pages)
+values ('123456', 2007, 'Just another book', 'James Hyper', 456);
+
+insert into borrow (reader_id, book_isbn, return_date)
+values (749, '123456', '8-23-2022');
 ```
 
 Результат:  
-![](./screenshots/8.png)
+![](./screenshots/9.png)
 
-### Перечислите все категории в категории “Спорт” (с любым уровнем вложености). <br>
+### Удалить все книги, год публикации которых превышает 2000 год. <br>
+Запрос:
+```
+delete from books
+where books.year >= 2000
+```
+
+Результат:  
+![](./screenshots/10.png)
+
+### Измените дату возврата для всех книг категории "Базы данных", начиная с 01.01.2016, чтобы они были в заимствовании на 30 дней дольше (предположим, что в SQL можно добавлять числа к датам). <br>
 Запрос:
 ```
 TODO
 ```
 
-Результат:  
-![](./screenshots/8.png)
+Результат: null
 
 ## Task 3
+
+Рассмотрим следующую реляционную схему:
+
+* Student( MatrNr, Name, Semester )
+* Check( MatrNr, LectNr, ProfNr, Note )
+* Lecture( LectNr, Title, Credit, ProfNr )
+* Professor( ProfNr, Name, Room )
 
 ### Опишите на русском языке результаты следующих запросов:
 
@@ -170,7 +188,7 @@ SELECT s.Name, s.MatrNr FROM Student s
 WHERE NOT EXISTS (
 SELECT * FROM Check c WHERE c.MatrNr = s.MatrNr AND c.Note >= 4.0 ) ;
 ```
-
+Этот вопрос возращает все студенты, которые имеют оценки только ниже 4.0.
 
 - 2
 ```sql
@@ -185,7 +203,10 @@ WHERE NOT EXISTS (
 SELECT * FROM Lecture lec WHERE lec.ProfNr = p.ProfNr ));
 ```
 
-- 3.
+Этот вопрос возращает все професоры, которые ведут лекции и общое количество их кредитов. Для всех професоров,
+которые не ведут лекции, будет записано 0 как кредитов.
+
+- 3
 ```sql
 SELECT s.Name, p.Note
 FROM Student s, Lecture lec, Check c
@@ -193,3 +214,5 @@ WHERE s.MatrNr = c.MatrNr AND lec.LectNr = c.LectNr AND c.Note >= 4
 AND c.Note >= ALL (
 SELECT c1.Note FROM Check c1 WHERE c1.MatrNr = c.MatrNr )
 ```
+
+Этот вопрос возращает имя студента и его оценка для студетна у которого самая высшая оценка.
