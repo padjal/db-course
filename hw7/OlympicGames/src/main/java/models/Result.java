@@ -1,9 +1,8 @@
 package models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "results")
@@ -12,8 +11,11 @@ public class Result {
     @Column(name = "event_id")
     private String id;
 
-    @Column(name = "player_id")
-    private String playerId;
+    @ManyToOne
+//    @JoinColumn(name = "player_id",
+//    foreignKey = @ForeignKey(name = "player_id"))
+//    @Type(type = "models.Player")
+    private Player player;
 
     @Column(name = "medal")
     private String medal;
@@ -29,12 +31,12 @@ public class Result {
         this.id = id;
     }
 
-    public String getPlayerId() {
-        return playerId;
+    public Player getPlayerId() {
+        return player;
     }
 
-    public void setPlayerId(String playerId) {
-        this.playerId = playerId;
+    public void setPlayerId(Player player) {
+        this.player = player;
     }
 
     public String getMedal() {

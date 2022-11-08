@@ -20,9 +20,13 @@ import java.util.List;
 public class Main {
     private static SessionFactory factory;
 
+    private static StandardServiceRegistry standardServiceRegistry;
+
     public static void main(String[] args) {
-        StandardServiceRegistry ssr=new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
-        Metadata meta=new MetadataSources(ssr).getMetadataBuilder().build();
+        StandardServiceRegistry standardServiceRegistry=new StandardServiceRegistryBuilder()
+                .configure("hibernate.cfg.xml")
+                .build();
+        Metadata meta=new MetadataSources(standardServiceRegistry).getMetadataBuilder().build();
 
         SessionFactory factory=meta.getSessionFactoryBuilder().build();
         Session session=factory.openSession();
@@ -30,9 +34,12 @@ public class Main {
         TypedQuery query=session.createQuery("from Event");
         List<Event> list=query.getResultList();
 
-        for (var event :
-                list) {
-            System.out.println(event);
-        }
+//        for (var event :
+//                list) {
+//            System.out.println(event);
+//        }
+
+        var events = list.toArray();
+        System.out.println(events[0]);
     }
 }

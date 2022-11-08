@@ -1,12 +1,9 @@
 package models;
 
 
-import org.hibernate.annotations.Target;
+import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "events")
@@ -22,8 +19,10 @@ public class Event {
     @Column(name = "eventtype")
     private String eventType;
 
-    @Column(name = "olympic_id")
-    private String olympicId;
+    @ManyToOne
+    @JoinColumn(name = "olympic_id",
+    foreignKey = @ForeignKey(name = "olympic_id"))
+    private Olympic olympic;
 
     @Column(name = "is_team_event")
     private boolean isTeamEvent;
@@ -58,12 +57,12 @@ public class Event {
         this.eventType = eventType;
     }
 
-    public String getOlympicId() {
-        return olympicId;
+    public Olympic getOlympic() {
+        return olympic;
     }
 
-    public void setOlympicId(String olympicId) {
-        this.olympicId = olympicId;
+    public void setOlympic(Olympic olympic) {
+        this.olympic = olympic;
     }
 
     public boolean isTeamEvent() {
@@ -88,5 +87,18 @@ public class Event {
 
     public void setResultNotedIn(String resultNotedIn) {
         this.resultNotedIn = resultNotedIn;
+    }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", eventType='" + eventType + '\'' +
+                ", olympic=" + olympic +
+                ", isTeamEvent=" + isTeamEvent +
+                ", numPlayersInTeam=" + numPlayersInTeam +
+                ", resultNotedIn='" + resultNotedIn + '\'' +
+                '}';
     }
 }

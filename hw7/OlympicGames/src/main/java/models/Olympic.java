@@ -1,9 +1,6 @@
 package models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -14,8 +11,10 @@ public class Olympic {
     @Column(name = "olympic_id")
     private String id;
 
-    @Column(name = "country_id")
-    private String countryId;
+    @ManyToOne
+    @JoinColumn(name = "country_id",
+    foreignKey = @ForeignKey(name = "country_id"))
+    private Country country;
 
     @Column(name = "city")
     private String city;
@@ -37,12 +36,12 @@ public class Olympic {
         this.id = id;
     }
 
-    public String getCountryId() {
-        return countryId;
+    public Country getCountry() {
+        return country;
     }
 
-    public void setCountryId(String countryId) {
-        this.countryId = countryId;
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     public String getCity() {
@@ -75,5 +74,17 @@ public class Olympic {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Olympic{" +
+                "id='" + id + '\'' +
+                ", countryId='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", year=" + year +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                '}';
     }
 }
