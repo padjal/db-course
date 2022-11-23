@@ -7,6 +7,24 @@
     <groupId>ru.hse.db.hw</groupId>
     <artifactId>OlympicGames</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>8.5.13</version>
+                <configuration>
+                    <user>root</user>
+                    <password>root</password>
+                    <schemas>
+                        <schema>public</schema>
+                    </schemas>
+                    <url>jdbc:postgresql://localhost:5432/olympic_games</url>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -23,6 +41,9 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <flyway.user>root</flyway.user>
+        <flyway.password>root</flyway.password>
+        <flyway.schemas>public</flyway.schemas>
     </properties>
 
 
