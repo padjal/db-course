@@ -1,6 +1,9 @@
 # HW7 - Olympic games
 While completing this homework, I encountered several problems, which I believe would be beneficial to be discussed.
 
+## Db configuration
+In order to test this project in your local environment, you need to configure the db. First, you need a running Postgre instance
+
 ## Migrations
 Migrations turned out to be the hardest part, but I finally managed to wrap my head around them. Here's the result:
 
@@ -23,3 +26,7 @@ Migrations turned out to be the hardest part, but I finally managed to wrap my h
 Process finished with exit code 0
 ```
 
+For the migrations, I have used the Flyway IntelliJ Idea plugin, which is based on some versioned configuration files, specifying all the new changes in each db iteration.
+
+## Seeding
+The seeder script is located in the Java project and is called `DbFaker`. You can execute it to fill the database.
