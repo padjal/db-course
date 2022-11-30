@@ -1,4 +1,3 @@
-import models.Country;
 import models.Event;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -18,18 +17,10 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Main {
-    private static SessionFactory factory;
-
-    private static StandardServiceRegistry standardServiceRegistry;
 
     public static void main(String[] args) {
-        StandardServiceRegistry standardServiceRegistry=new StandardServiceRegistryBuilder()
-                .configure("hibernate.cfg.xml")
-                .build();
-        Metadata meta=new MetadataSources(standardServiceRegistry).getMetadataBuilder().build();
 
-        SessionFactory factory=meta.getSessionFactoryBuilder().build();
-        Session session=factory.openSession();
+        Session session=InitHibernate.factory.openSession();
 
         TypedQuery query=session.createQuery("from Event");
         List<Event> list=query.getResultList();

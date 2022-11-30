@@ -4,6 +4,8 @@ package models;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.sql.Time;
+import java.util.Date;
 
 @Entity
 @Table(name = "events")
@@ -13,25 +15,20 @@ public class Event {
     @Column(name = "event_id")
     private String id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "sport_name")
+    private String sportName;
 
-    @Column(name = "eventtype")
-    private String eventType;
+    @Column(name = "event_name")
+    private String eventName;
 
-    @ManyToOne
-    @JoinColumn(name = "olympic_id",
-    foreignKey = @ForeignKey(name = "olympic_id"))
-    private Olympic olympic;
+    @Column(name = "venue")
+    private String venue;
 
-    @Column(name = "is_team_event")
-    private boolean isTeamEvent;
+    @Column(name = "date")
+    private Date date;
 
-    @Column(name = "num_players_in_team")
-    private int numPlayersInTeam;
-
-    @Column(name = "result_noted_in")
-    private String resultNotedIn;
+    @Column(name = "time")
+    private Time time;
 
     public String getId() {
         return id;
@@ -41,64 +38,43 @@ public class Event {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getSportName() {
+        return sportName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSportName(String sportName) {
+        this.sportName = sportName;
     }
 
-    public String getEventType() {
-        return eventType;
+    public String getEventName() {
+        return eventName;
     }
 
-    public void setEventType(String eventType) {
-        this.eventType = eventType;
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
     }
 
-    public Olympic getOlympic() {
-        return olympic;
+    public String getVenue() {
+        return venue;
     }
 
-    public void setOlympic(Olympic olympic) {
-        this.olympic = olympic;
+    public void setVenue(String venue) {
+        this.venue = venue;
     }
 
-    public boolean isTeamEvent() {
-        return isTeamEvent;
+    public Date getDate() {
+        return date;
     }
 
-    public void setTeamEvent(boolean teamEvent) {
-        isTeamEvent = teamEvent;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public int getNumPlayersInTeam() {
-        return numPlayersInTeam;
+    public Time getTime() {
+        return time;
     }
 
-    public void setNumPlayersInTeam(int numPlayersInTeam) {
-        this.numPlayersInTeam = numPlayersInTeam;
-    }
-
-    public String getResultNotedIn() {
-        return resultNotedIn;
-    }
-
-    public void setResultNotedIn(String resultNotedIn) {
-        this.resultNotedIn = resultNotedIn;
-    }
-
-    @Override
-    public String toString() {
-        return "Event{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", eventType='" + eventType + '\'' +
-                ", olympic=" + olympic +
-                ", isTeamEvent=" + isTeamEvent +
-                ", numPlayersInTeam=" + numPlayersInTeam +
-                ", resultNotedIn='" + resultNotedIn + '\'' +
-                '}';
+    public void setTime(Time time) {
+        this.time = time;
     }
 }
