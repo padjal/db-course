@@ -1,4 +1,4 @@
-# Stored procedures
+# Stored procedures & Triggers
 HW8 is all about stored procedures - what are they, what function do they serve, how to create and execute them.
 
 ## What are stored procedures?
@@ -34,6 +34,10 @@ Procedures can be executed by simply invoking their name and parameters:
 CALL TEST();
 ```
 
+## What are triggers?
+Triggers are functions in the dbms, which are automatically executed on some predefined conditions.
+They are useful, because they allow the data to be checked before being inserted in the database permanently and can handle complex logic.
+
 # Completed tasks
 The completed tasks in this homework are:
 1. Create Stored procedure.
@@ -54,10 +58,12 @@ Note: Include exception handling to handle an attempt to insert a nonexistent em
 . Reenable the triggers on the EMPLOYEES, JOBS, and JOB_HISTORY tables.
  
 
-3. Create Stored Procedure. In this exercise, create a program to update the minimum and maximum salaries for a job in the JOBS table.
-a. Create a stored procedure called UPD_JOBSAL to update the minimum and maximum salaries for a specific job ID in the JOBS table. The procedure should provide three parameters: the job ID, a new minimum salary, and a new maximum salary. Add exception handling to account for an invalid job ID in the JOBS table. Raise an exception if the maximum salary supplied is less than the minimum salary. Provide a message that will be displayed if the row in the JOBS table is locked.
+3. Create Stored Procedure.
+
+ In this exercise, create a program to update the minimum and maximum salaries for a job in the JOBS table.
+- Create a stored procedure called UPD_JOBSAL to update the minimum and maximum salaries for a specific job ID in the JOBS table. The procedure should provide three parameters: the job ID, a new minimum salary, and a new maximum salary. Add exception handling to account for an invalid job ID in the JOBS table. Raise an exception if the maximum salary supplied is less than the minimum salary. Provide a message that will be displayed if the row in the JOBS table is locked.
 Hint: The resource locked/busy error number is –54.
-b. Execute the UPD_JOBSAL procedure by using a job ID of 'SY_ANAL', a minimum salary of 7000, and a maximum salary of 140.
+- Execute the UPD_JOBSAL procedure by using a job ID of 'SY_ANAL', a minimum salary of 7000, and a maximum salary of 140.
 c. Disable triggers on the EMPLOYEES and JOBS tables.
 d. Execute the UPD_JOBSAL procedure using a job ID of 'SY_ANAL', a minimum salary of 7000, and a maximum salary of 14000.
 e. Query the JOBS table to view your changes, and then commit the changes.
