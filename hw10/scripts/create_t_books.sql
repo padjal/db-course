@@ -1,4 +1,5 @@
 -- Create base table
+drop table if exists t_books;
 
 -- BOOKS table
 --	 	book_id	  - ID of book (primary key)
