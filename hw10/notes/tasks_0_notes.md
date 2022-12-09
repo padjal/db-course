@@ -156,17 +156,22 @@ Execution Time: 2.197 ms
 ```
 
 The index for title seems to work, despite the fact that it is only for UPPER(title).
+
 17. ✅ Try to drop all indexes in your schema. Please, explain the result.
 I cannot drop the t_books_up_title_idx index for some reason.
+
 18. ❓ Create reverse B*Tree index (t_books_rev_title_idx) on title column of t_books table.
     a. Analyze index (EXPLAIN ANALYZE index_name), select height, lf_blks, br_blks, btree_space, opt_cmpr_count,
     opt_cmpr_pctsave from index_stats view. Explain the result.
     b. Compress t_books_rev_title_idx on opt_cmpr_count and analyze index again. Explain the result.
 Not applicable to Postgres.
+
 19. ❓ Select from t_books data about book with title 'Oracle Core' and get expected execution plan for this query. Please,
     explain the result.
 Cannot complete due to 18.
+
 20. ❓ Select from t_books data about book with title starting with 'Relational' (case-insensitive) and get expected
     execution plan for this query. Please, explain the result. 
 Cannot complete due to 18.
+
 21. ✅ Create your own example of descending B*Tree index.
