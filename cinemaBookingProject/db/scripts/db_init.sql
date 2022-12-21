@@ -57,14 +57,15 @@ create table if not exists users
 
 create table if not exists transactions
 (
-    id        integer not null
+    id             integer not null
         constraint transactions_pk
             primary key,
-    amount    double precision,
-    user_id   integer
+    amount         double precision,
+    user_id        integer
         constraint transactions_users_null_fk
             references users,
-    timestamp timestamp
+    timestamp      timestamp,
+    payment_method varchar
 );
 
 create table if not exists bookings

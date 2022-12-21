@@ -18,7 +18,9 @@ This database should be usable for a long period of time, easily maintainable an
 - As a combination from the previous two, projection-specific data should be kept about all seats. This table should include information about the hall, seat number, projection, status (booked or free), price (because it can vary from hall to hall, movie to movie, date to date, etc.), and a relation to a booking (if the seat is booked, otherwise NULL).
 - Information about the users should include name, surname, age, and email.
 - All monetary transactions should be also kept in the database as a payment confirmation in order to check for ticket validity (tickets shown at the movie entrance are checked against their transaction id to match different fields). Information about the transaction amount, user who made the transaction, and a timestamp should be kept about all of them.
-- Booking data should include the user, status (enum - IN PROGRESS, COMPLETED, REVERTED), number of tickets, transaction info, and a timestamp. 
+- Booking data should include the user, status (enum - IN PROGRESS, COMPLETED, REVERTED), number of tickets, transaction info, and a timestamp.
+- Users should be able to see all available tickets for a selected projection.
+- Users should be able to see all movies which are projected in the next week.
 
 ## Non-functional requirements
 - To make sure that the tickets sold online or via the theater desk, they would incorporate a qr-code, which will contain information about the successful transaction, making the tickets unique and securing the whole system.
@@ -36,8 +38,27 @@ This database should be usable for a long period of time, easily maintainable an
 - The number of tickets in the bookings table, hall and seat numbers, prices, hall capacities, and user ages should be positive integers.
 
 ## Normalization
+Our database schema if following all requirements for the 3NF, which is considered a minimum for database designs.
 
+- ### 1NF
+  - ✅ ️Each table cell should contain a single value.
+  - ✅ ️Each record needs to be unique
+- ### 2NF
+  - ✅ ️Every non-key attribute is dependent on every key
+- ### 3NF
+  - ✅ ️Lacks transitive functional dependencies
+- ### Boyce Codd normal form (BCNF)
+  - Our database does not follow the BCNF normalization form since in the `seats` table we use both the hall and seat number to identify the exact seat. For our example this is perfectly fine, but it could cause problems in other systems.
+
+### What could have been different?
+If we used a single table for the both the users and the transactions that they have completed through our service, for example. The schema of the resulting table would look something like this:
+
+![](res/UsersTransactionsTable.png)
+
+Such a schema allows us to make many mistakes such as data duplication, update anomalies, insert anomalies and others.
 
 ## Transfer to SQL DDL
-The database initialization script can be found [here]()
+The database initialization script can be found [here](./scripts/db_init.sql).
+
+## SQL Queries
 
