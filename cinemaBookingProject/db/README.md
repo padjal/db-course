@@ -33,7 +33,7 @@ This database should be usable for a long period of time, easily maintainable an
 
 ## Data restrictions
 - The age category for movies is a one letter classification system (A-D).
-- The country of origin of movies is kept in a three-letter format (ex. USA, RUS, AUS, etc.)
+- The country of origin of movies is kept in a two-letter format (ex. USA, RUS, AUS, etc.)
 - Booking status should not fall above the available enum values (0-2) for IN PROGRESS, COMPLETED, REVERTED
 - The number of tickets in the bookings table, hall and seat numbers, prices, hall capacities, and user ages should be positive integers.
 
@@ -61,4 +61,4 @@ Such a schema allows us to make many mistakes such as data duplication, update a
 The database initialization script can be found [here](./scripts/db_init.sql).
 
 ## SQL Queries
-
+Before writing all the queries, we need to fill the database will sensible data that we could use for testing. I am going to use a [seeder](scripts/seeder.sql) script for that. This script is automatically run with the creation of the docker container. The goal is that everyone running the container will have a similar experience. After that we can proceed with testing the functionalities of our database.

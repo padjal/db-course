@@ -57,7 +57,7 @@ create table if not exists users
 
 create table if not exists transactions
 (
-    id             integer not null
+    id             integer generated always as identity (minvalue 100)
         constraint transactions_pk
             primary key,
     amount         double precision,
@@ -71,7 +71,7 @@ create table if not exists transactions
 create table if not exists bookings
 (
     projection_id     integer,
-    id                integer not null
+    id                integer generated always as identity (minvalue 100)
         constraint bookings_pk
             primary key,
     user_id           integer
@@ -91,7 +91,7 @@ comment on column bookings.transaction_id is 'Booking is only complete after tra
 
 create table if not exists projection_seats
 (
-    id            integer not null
+    id            integer generated always as identity (minvalue 100)
         constraint projection_seats_pk
             primary key,
     hall          integer,
