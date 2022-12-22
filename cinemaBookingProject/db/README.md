@@ -21,6 +21,7 @@ This database should be usable for a long period of time, easily maintainable an
 - Booking data should include the user, status (enum - IN PROGRESS, COMPLETED, REVERTED), number of tickets, transaction info, and a timestamp.
 - Users should be able to see all available tickets for a selected projection.
 - Users should be able to see all movies which are projected in the next week.
+- After the user has chosen tickets, they should be able to book them and perform a transaction in order to buy them.
 
 ## Non-functional requirements
 - To make sure that the tickets sold online or via the theater desk, they would incorporate a qr-code, which will contain information about the successful transaction, making the tickets unique and securing the whole system.
@@ -58,7 +59,65 @@ If we used a single table for the both the users and the transactions that they 
 Such a schema allows us to make many mistakes such as data duplication, update anomalies, insert anomalies and others.
 
 ## Transfer to SQL DDL
-The database initialization script can be found [here](./scripts/db_init.sql).
+The database initialization script can be found [here](../init_scripts/db_init.sql).
 
 ## SQL Queries
-Before writing all the queries, we need to fill the database will sensible data that we could use for testing. I am going to use a [seeder](scripts/seeder.sql) script for that. This script is automatically run with the creation of the docker container. The goal is that everyone running the container will have a similar experience. After that we can proceed with testing the functionalities of our database.
+Before writing all the queries, we need to fill the database will sensible data that we could use for testing. I am going to use a [seeder](../init_scripts/seeder.sql) script for that. This script is automatically run with the creation of the docker container. The goal is that everyone running the container will have a similar experience. After that we can proceed with testing the functionalities of our database.
+
+### Checking that our project satisfies the requirements:
+All the SQL Queries used in this report will be available in the [queries.sql](./scripts/queries.sql) files.
+
+- ### Users should be able to see all movies which are projected in the next week.
+
+  ```postgresql
+  select projection_id, movie_name, director, year, category, age_category, country ,start_time, hall
+  from projections p
+  join movies m on m.name = p.movie_name
+  where p.start_time > now() and p.start_time < now() + interval '1 week';
+  ```
+  
+  Output:
+  ![](res/movies_in_next_week.png)
+- ### Users should be able to see all available tickets for a selected projection.
+
+  Let's assume that our clients really want to watch the Truth or Consequences, N.M. movie on 29.12.2022 and they want to see all the available tickets for this date.
+  
+  We can see that this projection has an id of 54. We can then query all the available tickets for this projection:
+  
+  ```postgresql
+  select * from projection_seats
+  where projection_id = 54 and is_booked = false;
+  ```
+  
+  Output:
+  ![](res/available_tickets.png)
+- ### After the user has chosen tickets, they should be able to book them and perform a transaction in order to buy them.
+
+  Let's assume that after looking at the tickets (this will most probably be done through an interactive user interface where they will be able to see where each seat is located, which seat is taken and the price of each seat), our clients have chosen theirs seats and want to proceed further by completing the order. For the sake of the example, let's assume that they chose seats 24 and 25 in hall 1 for this projection. 
+  
+  Booking these seats can be done by changing the is_booked flag on for these ids:
+  ```postgresql
+  update projection_seats
+  set is_booked = false
+  where projection_id = 54
+  and id in (10875, 10876);
+  ```
+  
+  In order to confirm the booking, our clients will need to make a successful payment. We will add this information to the `transactions` table.
+  
+  ```postgresql
+  insert into transactions(amount, user_id, timestamp, payment_method)
+  values (40, 614, now(), 'cash');
+  ```
+  
+  In this example, we will assume that our clients use the profile with id 40 and will pay in cash. To complete the booking process, we need to add this transaction to the bookings table.
+  
+  ```postgresql
+  insert into bookings (projection_id, user_id, status, number_of_tickets, transaction_id, time)
+  values (54, 614, 2, 2, 199, now());
+  ```
+  
+  We have successfully recorded all information about this booking and we can confidently send confirmation information to the users, print them their tickets, etc. 
+  
+  A problem which arises with the current database design is that the information about the seat numbers which the user has bought are not kept in the database. This is not fatal, but some users of this software might require this as a feature in the future.
+- 

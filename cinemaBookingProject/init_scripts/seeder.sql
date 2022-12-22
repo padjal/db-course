@@ -1465,11 +1465,12 @@ from halls;
 insert into projection_seats(hall, number, projection_id, is_booked, price, booking_id)
 select number,
        generate_series(1, capacity),
-       40,
+       54,
        false,
        20,
        NULL
-from halls;
+from halls
+where number = 1;
 
 --Transactions
 insert into transactions(amount, user_id, timestamp, payment_method)
