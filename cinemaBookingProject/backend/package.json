@@ -1,0 +1,15 @@
+{
+  "name": "node-postgres",
+  "version": "1.0.0",
+  "description": "A backend for connecting with the Postgres database.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Pavel Dzhalev",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "pg": "^8.8.0"
+  }
+}

@@ -19,3 +19,5 @@ You can find the notes about the database organization and structure [here](db/R
 ## User interface
 It is my intention to create a user interface for this database project in order to make it more perceivable for everyone. I want to implement it using one of the famous UI frontend frameworks - React.js or Vue.js.
 
+Is turns out that there are a lot of things that I need to learn before creating a web-based UI for my project as I wanted, so this will remain as an open task.
+

@@ -120,4 +120,3 @@ All the SQL Queries used in this report will be available in the [queries.sql](.
   We have successfully recorded all information about this booking and we can confidently send confirmation information to the users, print them their tickets, etc. 
   
   A problem which arises with the current database design is that the information about the seat numbers which the user has bought are not kept in the database. This is not fatal, but some users of this software might require this as a feature in the future.
-- 
